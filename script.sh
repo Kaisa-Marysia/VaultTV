@@ -41,7 +41,7 @@ while true;
     tput sgr0
     tput cup 0 0
     clear;
-    curl -s "https://reiseauskunft.bahn.de/bin/bhftafel.exe/dn?L=vs_java&start=yes&boardType=arr&time=actual&productsDefault=1111101&start=yes&input=8000036" | tail -n +2 | sed '0~3 a\\' | sed -ne '$!H;/^$/{x;s/\n/\t/g;G;p;d;}' 
+    curl -s "https://dbf.finalrewind.org/Bielefeld%20Hbf?mode=json&version=3" | jq -r '.departures[] | {scheduledDeparture,train,trainNumber,destination,platform} | select (.scheduledDeparture!=null)' | jq -r '"\(.scheduledDeparture), \(.train), \(.trainNumber), \(.destination), \(.platform)"' | awk 'ORS="\n"' | column -t -s ',' | head -n 10
     sleep 2;
     STARTPOS=1; 
     tput cup 0 0
@@ -54,4 +54,4 @@ while true;
     tput cup 0 0
     clear;
 
-done 
+done
