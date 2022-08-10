@@ -1,55 +1,71 @@
 #!/bin/sh
-while true; 
-  do 
+DELAY=5
+
+while true;
+  do
     tput cup 0 0
-    curl "wttr.in/Bielefeld?1npQ&lang=de"; 
-    sleep 2; 
-    STARTPOS=1; 
+    viu -w 70 /home/kascha/acme.png
+    sleep $DELAY
+    STARTPOS=1;
     tput dim
     tput cup 0 0
-      while [ $STARTPOS -le 60 ]; 
-        do 
-          printf '%*s\n' "${COLUMNS:-$(tput cols)}" ''; 
-          STARTPOS=$(( $STARTPOS + 1 )); 
-          sleep 0.01; 
+      while [ $STARTPOS -le 60 ];
+        do
+          printf '%*s\n' "${COLUMNS:-$(tput cols)}" '';
+          STARTPOS=$(( $STARTPOS + 1 ));
+          sleep 0.01;
         done
-    clear; 
+    clear;
+
+    curl "wttr.in/Bielefeld?1npQ&lang=de";
+    sleep $DELAY;
+    STARTPOS=1;
+    tput dim
     tput cup 0 0
-    curl "wttr.in/moon@2022-08-09&land=de"; 
-    sleep 2; 
-    STARTPOS=1; 
+      while [ $STARTPOS -le 60 ];
+        do
+          printf '%*s\n' "${COLUMNS:-$(tput cols)}" '';
+          STARTPOS=$(( $STARTPOS + 1 ));
+          sleep 0.01;
+        done
+    clear;
+
     tput cup 0 0
-      while [ $STARTPOS -le 60 ]; 
-        do 
-          printf '%*s\n' "${COLUMNS:-$(tput cols)}" ''; 
-          STARTPOS=$(( $STARTPOS + 1 )); 
-          sleep 0.01; 
+    curl "wttr.in/moon@2022-08-09&land=de";
+    sleep $DELAY;
+    STARTPOS=1;
+    tput cup 0 0
+      while [ $STARTPOS -le 60 ];
+        do
+          printf '%*s\n' "${COLUMNS:-$(tput cols)}" '';
+          STARTPOS=$(( $STARTPOS + 1 ));
+          sleep 0.01;
         done
     tput cup 0 0
     clear
     curl -s 'wttr.in/{Paderborn,Detmold,Hannover,Muenster,}?format=3&lang=de';
-    sleep 2;
-    STARTPOS=1; 
+    sleep $DELAY;
+    STARTPOS=1;
     tput dim
     tput cup 0 0
-      while [ $STARTPOS -le 60 ]; 
-        do 
-          printf '%*s\n' "${COLUMNS:-$(tput cols)}" ''; 
-          STARTPOS=$(( $STARTPOS + 1 )); 
-          sleep 0.01; 
+      while [ $STARTPOS -le 60 ];
+        do
+          printf '%*s\n' "${COLUMNS:-$(tput cols)}" '';
+          STARTPOS=$(( $STARTPOS + 1 ));
+          sleep 0.01;
         done
     tput sgr0
     tput cup 0 0
     clear;
-    curl -s "https://dbf.finalrewind.org/Bielefeld%20Hbf?mode=json&version=3" | jq -r '.departures[] | {scheduledDeparture,train,trainNumber,destination,platform} | select (.scheduledDeparture!=null)' | jq -r '"\(.scheduledDeparture), \(.train), \(.trainNumber), \(.destination), \(.platform)"' | awk 'ORS="\n"' | column -t -s ',' | head -n 10
-    sleep 2;
-    STARTPOS=1; 
+    curl -s "https://dbf.finalrewind.org/Bielefeld%20Hbf?mode=json&version=3" | jq -r '.departures[] | {scheduledDeparture,train,trainNumber,destination,platform} | select (.scheduledDeparture!=null)' | jq -r '"\(.scheduledDeparture), \(.train), \(.trainNumber), \(.destination), \(.platform)"' | awk 'ORS="\n"' | column -t -s ',' | head -n 18
+    sleep $DELAY;
+    STARTPOS=1;
     tput cup 0 0
-      while [ $STARTPOS -le 60 ]; 
-        do 
-          printf '%*s\n' "${COLUMNS:-$(tput cols)}" ''; 
-          STARTPOS=$(( $STARTPOS + 1 )); 
-          sleep 0.01; 
+      while [ $STARTPOS -le 60 ];
+        do
+          printf '%*s\n' "${COLUMNS:-$(tput cols)}" '';
+          STARTPOS=$(( $STARTPOS + 1 ));
+          sleep 0.01;
         done
     tput cup 0 0
     clear;
